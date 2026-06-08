@@ -113,12 +113,12 @@ function QuestionScreen({ currentIndex, selectedType, onSelect, onBack }) {
 function ResultScreen({ resultType, onRestart }) {
   const result = results[resultType]
   const [showPoster, setShowPoster] = useState(false)
-  const shareText = `나의 사역 스타일은 ${result.emoji} ${result.title}! ${result.tagline}`
+  const shareText = `나의 예배 유형은 ${result.emoji} ${result.title}! ${result.tagline}`
 
   const handleShare = async () => {
     if (navigator.share) {
       await navigator.share({
-        title: '나의 사역 스타일 테스트',
+        title: '나의 예배 유형 테스트',
         text: shareText,
         url: window.location.href,
       })
@@ -132,7 +132,7 @@ function ResultScreen({ resultType, onRestart }) {
   return (
     <main className="screen result-screen">
       <section className="card result-hero">
-        <p className="eyebrow">당신의 사역 스타일은</p>
+        <p className="eyebrow">당신의 예배 유형은</p>
         <div className="result-emoji">{result.emoji}</div>
         <h1>{result.title}</h1>
         <p className="tagline">“{result.tagline}”</p>
