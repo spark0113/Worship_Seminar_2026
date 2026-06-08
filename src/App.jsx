@@ -19,7 +19,12 @@ function shuffleAnswers(answers, seed) {
 }
 
 function getResultType(answers) {
-  const score = { worship: 0, support: 0, community: 0, service: 0 }
+  const score = {
+    mary: 0,
+    david: 0,
+    solomon: 0,
+    isaiah: 0,
+  }
 
   answers.forEach((type) => {
     if (score[type] !== undefined) score[type] += 1
@@ -29,7 +34,7 @@ function getResultType(answers) {
   const topScore = entries[0][1]
   const topTypes = entries.filter(([, value]) => value === topScore)
 
-  // 5문항이라 동점이 잦을 수 있음. 1등이 명확하지 않으면 균형형으로 처리.
+  // 동점이면 균형형
   if (topTypes.length >= 2 || topScore <= 1) return 'balanced'
 
   return entries[0][0]
@@ -41,7 +46,7 @@ function StartScreen({ onStart }) {
       <section className="hero card">
         <p className="eyebrow">우리는 예배자입니다</p>
         <h1>나는 어떤 예배자일까?</h1>
-        <p className="subtitle">10초만에 알아보는 나의 사역 스타일</p>
+        <p className="subtitle">10초만에 알아보는 나의 예배 유형</p>
 
         <div className="emoji-row" aria-hidden="true">
           <span>🎵</span>
@@ -54,7 +59,7 @@ function StartScreen({ onStart }) {
           테스트 시작하기
         </button>
 
-        <p className="tiny">사역 여부와 상관없이 누구나 참여할 수 있어요.</p>
+        <p className="tiny">누구나 참여할 수 있어요!</p>
       </section>
     </main>
   )
@@ -107,7 +112,7 @@ function QuestionScreen({ currentIndex, selectedType, onSelect, onBack }) {
 
 function ResultScreen({ resultType, onRestart }) {
   const result = results[resultType]
-
+  const [showPoster, setShowPoster] = useState(false)
   const shareText = `나의 사역 스타일은 ${result.emoji} ${result.title}! ${result.tagline}`
 
   const handleShare = async () => {
@@ -132,64 +137,38 @@ function ResultScreen({ resultType, onRestart }) {
         <h1>{result.title}</h1>
         <p className="tagline">“{result.tagline}”</p>
         <p className="description">{result.description}</p>
-        <a className="primary-button link-button" href={APPLY_URL} target="_blank" rel="noreferrer">
-          예배사역 세미나 신청하기
-        </a>
-      </section>
-
-      <section className="card">
-        <h2>이런 모습이 있어요</h2>
-        <ul className="check-list">
-          {result.traits.map((trait) => (
-            <li key={trait}>{trait}</li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="card">
-        <h2>찰떡궁합 사역</h2>
-        <div className="chips">
-          {result.ministries.map((ministry) => (
-            <span key={ministry}>{ministry}</span>
-          ))}
-        </div>
-        <p className="tiny left">
-          꼭 정답은 아니에요. 나의 성향을 발견해보는 작은 힌트예요.
-        </p>
       </section>
 
       <section className="bridge">
-        <p>
-          하지만 사역은 하나의 유형으로만 정해지지 않아요.
-          각자의 은사와 마음이 모일 때, 예배는 살아나고 공동체는 함께 세워져요.
-        </p>
-        <strong>당신은 하나의 역할이 아니라, 하나님이 사용하시는 예배의 조각입니다.</strong>
+        <strong>
+          참된 예배가 궁금하신가요?
+          <br />하나님은 지금의 우리를 예배자로 부르고 계세요.
+          <br />
+          <br />
+          더 깊은 예배가 궁금하다면,
+          <br />섬김이 다시 기쁨이 되기를 원한다면,
+          <br />그런 당신을 위해 준비했습니다.
+        </strong>
       </section>
 
       <section className="card seminar-card">
         <p className="eyebrow">예배사역 세미나</p>
         <h1>우리는 예배자입니다</h1>
-        <p>
-          이번 예배사역 세미나는 예배팀만을 위한 시간이 아니에요.
-          예배를 섬기고 있는 분들, 사역을 시작해보고 싶은 분들,
-          그리고 예배와 공동체를 더 깊이 알아가고 싶은 모든 성도님들을 위한 자리예요.
-        </p>
 
-        <div className="invite-box">
-          <h2>이런 분들을 초대합니다</h2>
-          <ul className="check-list">
-            <li>예배를 더 깊이 알고 싶은 분</li>
-            <li>현재 예배/사역팀으로 섬기고 있는 분</li>
-            <li>사역을 시작해보고 싶지만 망설이고 있는 분</li>
-            <li>섬김의 기쁨을 다시 회복하고 싶은 분</li>
-            <li>공동체 안에서 나의 역할을 고민하는 분</li>
-          </ul>
-        </div>
-
-        <p className="closing">
-          참된 예배의 회복, 아름다운 공동체의 세움,
-          그리고 사역의 기쁨을 다시 발견하는 시간이 되기를 소망합니다.
-        </p>
+        <button
+          className="poster-card"
+          type="button"
+          onClick={() => setShowPoster(true)}
+          aria-label="예배사역 세미나 포스터 크게 보기"
+        >
+          <img src="/poster.png" alt="우리는 예배자입니다 예배사역 세미나 포스터" />
+          <span className="poster-hint">눌러서 크게 보기</span>
+          <div className="poster-info">
+            <strong>6월 27일 토요일</strong>
+            <span>오후 2:00–7:30</span>
+            <span>퍼스백양장로교회</span>
+          </div>
+        </button>
 
         <a className="primary-button link-button" href={APPLY_URL} target="_blank" rel="noreferrer">
           예배사역 세미나 신청하기
@@ -207,9 +186,20 @@ function ResultScreen({ resultType, onRestart }) {
 
       <div className="sticky-cta">
         <a href={APPLY_URL} target="_blank" rel="noreferrer">
-          세미나 신청하기
+          예배사역 세미나 신청하기
         </a>
       </div>
+
+      {showPoster && (
+        <div className="poster-modal" onClick={() => setShowPoster(false)}>
+          <div className="poster-modal-content" onClick={(e) => e.stopPropagation()}>
+            <img src="/poster.png" alt="예배사역 세미나 포스터 크게 보기" />
+            <button type="button" onClick={() => setShowPoster(false)}>
+              닫기
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   )
 }
