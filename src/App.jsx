@@ -152,16 +152,16 @@ function ResultScreen({ resultType, onRestart }) {
       </section>
 
       <section className="card seminar-card">
-        <p className="eyebrow">예배사역 세미나</p>
+        <p className="eyebrow">예배 세미나</p>
         <h1>우리는 예배자입니다</h1>
 
         <button
           className="poster-card"
           type="button"
           onClick={() => setShowPoster(true)}
-          aria-label="예배사역 세미나 포스터 크게 보기"
+          aria-label="예배 세미나 포스터 크게 보기"
         >
-          <img src="/poster.png" alt="우리는 예배자입니다 예배사역 세미나 포스터" />
+          <img src="/poster.png" alt="우리는 예배자입니다 예배 세미나 포스터" />
           <span className="poster-hint">눌러서 크게 보기</span>
           <div className="poster-info">
             <strong>6월 27일 토요일</strong>
@@ -171,7 +171,7 @@ function ResultScreen({ resultType, onRestart }) {
         </button>
 
         <a className="primary-button link-button" href={APPLY_URL} target="_blank" rel="noreferrer">
-          예배사역 세미나 신청하기
+          예배 세미나 신청하기
         </a>
 
         <div className="button-row">
@@ -186,14 +186,14 @@ function ResultScreen({ resultType, onRestart }) {
 
       <div className="sticky-cta">
         <a href={APPLY_URL} target="_blank" rel="noreferrer">
-          예배사역 세미나 신청하기
+          예배 세미나 신청하기
         </a>
       </div>
 
       {showPoster && (
         <div className="poster-modal" onClick={() => setShowPoster(false)}>
           <div className="poster-modal-content" onClick={(e) => e.stopPropagation()}>
-            <img src="/poster.png" alt="예배사역 세미나 포스터 크게 보기" />
+            <img src="/poster.png" alt="예배 세미나 포스터 크게 보기" />
             <button type="button" onClick={() => setShowPoster(false)}>
               닫기
             </button>
